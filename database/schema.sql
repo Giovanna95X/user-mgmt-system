@@ -1,0 +1,28 @@
+-- 用户表
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  role TEXT NOT NULL DEFAULT 'user' CHECK(role IN ('admin', 'user')),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- refresh_tokens 表（用于 JWT 刷新）
+CREATE TABLE IF NOT EXISTS refresh_tokens (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  token TEXT UNIQUE NOT NULL,
+  expires_at DATETIME NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 更新 updated_at 的触发器
+CREATE TRIGGER IF NOT EXISTS update_users_updated_at
+  AFTER UPDATE ON users
+  FOR EACH ROW
+  BEGIN
+    UPDATE users SET updated_at = CURRENT_TIMESTAMP WHERE id = OLD.id;
+  END;

@@ -1,0 +1,23 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "## 文件 - `schema.sql`: 表结构定义 - `init.ts`: 初始化脚本（创建表 + 写入测试数据） - `seed.ts`: 测试数据 - `dev.db`: SQLite 数据库文件（运行 init.ts 后生成）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^11.10.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
